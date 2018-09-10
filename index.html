@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+    <div class="written-clock">
+      <span></span>
+    </div>
+
+  </body>
+  <script>
+
+
+    const secondHand = document.querySelector('.second-hand');
+    const minuteHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
+    const dateFormat = document.querySelector('.written-clock');
+
+    function setDate(){
+      const nowTime = new Date();
+      dateFormat.lastElementChild.innerHTML = nowTime.toLocaleTimeString("en-US");
+      const secondsDegrees = ((nowTime.getSeconds()/60) * 360) + 90;
+      const minuteDegrees = ((nowTime.getMinutes()/60)* 360) + 90;
+      const hourDegrees = ((nowTime.getHours()/12)* 360) + 90;
+
+      if (nowTime.getSeconds() === 0 ){
+        // console.log("hi", secondsDegrees);
+        secondHand.classList.add("no-transition");
+      }else{
+        secondHand.classList.remove("no-transition");
+      }
+      if (nowTime.getMinutes() === 0 ){
+        // console.log("hi", minuteDegrees);
+        minuteHand.classList.add("no-transition");
+      }else{
+        minuteHand.classList.remove("no-transition");
+      }
+      if (nowTime.getHours() === 0 ){
+        // console.log("hi", hourDegrees);
+        hourHand.classList.add("no-transition");
+      }else{
+        hourHand.classList.remove("no-transition");
+      }
+
+      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+      minuteHand.style.transform = `rotate(${minuteDegrees}deg)`;
+      hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+    }
+    setInterval(setDate, 1000);
+  </script>
+</html>
